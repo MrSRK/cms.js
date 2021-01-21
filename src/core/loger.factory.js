@@ -1,5 +1,5 @@
 "use strict"
-const errorsFactory=(morgan,rfs,fs,path,env,options)=>
+const errorsFactory=(morgan,rfs,fs,path,env)=>
 {
 	return new Promise((resolve,reject)=>
 	{
@@ -13,9 +13,9 @@ const errorsFactory=(morgan,rfs,fs,path,env,options)=>
 					message:'Log file anavailable in development environment, Only stdOut',
 					module:morgan('dev')
 			})
-			const logDirectory=path.join(__dirname,options.path||'../../logs')
+			const logDirectory=path.join(__dirname,env.LOGET_PATH||'../../logs')
 			const opt={
-				interval:options.interval||'1d',
+				interval:env.LOGER_INTERVAL||'1d',
 				path:logDirectory
 			}
 			const accessLogStream=rfs.createStream('access.log',opt)
@@ -34,7 +34,7 @@ const errorsFactory=(morgan,rfs,fs,path,env,options)=>
 		}
 	})
 }
-module.exports.factory=(morgan,rfs,fs,path,env,options)=>
+module.exports.factory=(morgan,rfs,fs,path,env)=>
 {
-	return errorsFactory.bind(null,morgan,rfs,fs,path,env,options)
+	return errorsFactory.bind(null,morgan,rfs,fs,path,env)
 }

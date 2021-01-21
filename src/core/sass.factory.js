@@ -16,9 +16,9 @@ const errorsFactory=(sassmiddleware,env,path)=>
 				status:true,
 				use:true,
 				name:'SASS Handler',
-				message:'CSS ready at '+env.SASS_DEST,
+				message:'Ready to put css at '+env.SASS_DEST,
 				module:sassmiddleware(options)
-		})
+			})
 		}
 		catch(error)
 		{
