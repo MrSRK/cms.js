@@ -1,5 +1,5 @@
 "use strict"
-const errorsFactory=(morgan,rfs,fs,path,env)=>
+const factory=(morgan,rfs,fs,path,env)=>
 {
 	return new Promise((resolve,reject)=>
 	{
@@ -9,11 +9,11 @@ const errorsFactory=(morgan,rfs,fs,path,env)=>
 				return resolve({
 					status:true,
 					use:true,
-					name:'Log Handler',
+					name:'Loger Handler',
 					message:'Log file anavailable in development environment, Only stdOut',
 					module:morgan('dev')
 			})
-			const logDirectory=path.join(__dirname,env.LOGET_PATH||'../../logs')
+			const logDirectory=path.join(__dirname,'../../',env.LOGER_PATH||'logs')
 			const opt={
 				interval:env.LOGER_INTERVAL||'1d',
 				path:logDirectory
@@ -22,9 +22,10 @@ const errorsFactory=(morgan,rfs,fs,path,env)=>
 			if(!fs.existsSync(logDirectory))
 				fs.mkdirSync(logDirectory,{recursive:true})
 			return resolve({
-				status:false,
-				name:'Log Handler',
-				message:'',
+				status:true,
+				use:true,
+				name:'Loger Handler',
+				message:'Log file path set to '+logDirectory,
 				module:morgan('combined',{stream:accessLogStream})
 			})
 		}
@@ -36,5 +37,5 @@ const errorsFactory=(morgan,rfs,fs,path,env)=>
 }
 module.exports.factory=(morgan,rfs,fs,path,env)=>
 {
-	return errorsFactory.bind(null,morgan,rfs,fs,path,env)
+	return factory.bind(null,morgan,rfs,fs,path,env)
 }

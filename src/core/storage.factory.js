@@ -1,5 +1,5 @@
 "use strict"
-const errorsFactory=(multer,fs,path,env,root,fileName)=>
+const factory=(multer,fs,path,env,root,fileName)=>
 {
 	return new Promise((resolve,reject)=>
 	{
@@ -10,12 +10,12 @@ const errorsFactory=(multer,fs,path,env,root,fileName)=>
 				use:false,
 				emped:'saveFile',
 				name:'Store Handler',
-				message:'Storage function (saveFile) empeded to app',
+				message:'Storage function empeded to app [array app.saveFile(root,name)]',
 				module:multer({storage:multer.diskStorage(
 				{
 					destination:(req,file,next)=>
 					{
-						const filepath=path.join(__dirname, '../../'+env.STORAGE_ROOT+root)
+						const filepath=path.join(__dirname,'../../',env.STORAGE_ROOT,root)
 						return fs.exists(filepath,exists=>
 						{
 							if(!exists)
@@ -31,7 +31,7 @@ const errorsFactory=(multer,fs,path,env,root,fileName)=>
 					},
 					filename:(req,file,next)=>
 					{
-						const filepath=path.join(__dirname, '../'+env.STORAGE_ROOT+root)
+						const filepath=path.join(__dirname,'../../',env.STORAGE_ROOT,root)
 						let ext=''
 						if(file.originalname.lastIndexOf('.')>=0)
 							ext='.'+file.originalname.split('.').reverse()[0]
@@ -54,5 +54,5 @@ const errorsFactory=(multer,fs,path,env,root,fileName)=>
 }
 module.exports.factory=(multer,fs,path,env)=>
 {
-	return errorsFactory.bind(null,multer,fs,path,env)
+	return factory.bind(null,multer,fs,path,env)
 }

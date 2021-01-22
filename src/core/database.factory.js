@@ -1,5 +1,5 @@
 "use strict"
-const errorsFactory=(mongoose,env)=>
+const factory=(mongoose,env)=>
 {
 	return new Promise((resolve,reject)=>
 	{
@@ -33,5 +33,5 @@ const errorsFactory=(mongoose,env)=>
 }
 module.exports.factory=(mongoose,env)=>
 {
-	return errorsFactory.bind(null,mongoose,env)
+	return factory.bind(null,mongoose,env)
 }

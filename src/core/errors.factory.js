@@ -1,5 +1,5 @@
 "use strict"
-const errorsFactory=(errorhandler,env)=>
+const factory=(errorhandler,env)=>
 {
 	return new Promise((resolve,reject)=>
 	{
@@ -27,5 +27,5 @@ const errorsFactory=(errorhandler,env)=>
 }
 module.exports.factory=(errorhandler,env)=>
 {
-	return errorsFactory.bind(null,errorhandler,env)
+	return factory.bind(null,errorhandler,env)
 }

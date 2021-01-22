@@ -1,5 +1,5 @@
 "use strict"
-const errorsFactory=(bodyParser,type)=>
+const factory=(bodyParser,type)=>
 {
 	return new Promise((resolve,reject)=>
 	{
@@ -10,7 +10,7 @@ const errorsFactory=(bodyParser,type)=>
 					status:true,
 					use:true,
 					name:'Parser Handler',
-					message:'Parser set to JSON',
+					message:'Parser listen JSON',
 					module:bodyParser.json({limit: '50mb', extended: true})
 			})
 			if(type==='url')
@@ -18,7 +18,7 @@ const errorsFactory=(bodyParser,type)=>
 					status:true,
 					use:true,
 					name:'Parser Handler',
-					message:'Parser set to URL',
+					message:'Parser listen URL',
 					module:bodyParser.urlencoded({extended:true})
 			})
 			return reject({
@@ -35,5 +35,5 @@ const errorsFactory=(bodyParser,type)=>
 }
 module.exports.factory=(bodyParser)=>
 {
-	return errorsFactory.bind(null,bodyParser)
+	return factory.bind(null,bodyParser)
 }
